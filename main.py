@@ -14,7 +14,8 @@ def main():
     title = input("Введите название новеллы: ")
     url = input("Введите ссылку на новеллу: ")
     pars = Parser(title, url)
-    pars.get_webpage(url)
+    page = pars.get_webpage(url)
+    print(page.text)
 
 
 if __name__ == '__main__':

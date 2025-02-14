@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from loguru import logger
 import requests
 
@@ -17,5 +18,6 @@ class Parser:
         if response.status_code == 200:
             response.encoding = response.apparent_encoding
             logger.info(f"page {link} is got")
+            return BeautifulSoup(response.text, "html.parser")
         else:
             logger.error(f"page {link} is not got {response.status_code}")

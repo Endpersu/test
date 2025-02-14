@@ -1,5 +1,6 @@
 from loguru import logger
 
+from novel import Novel
 from parser import Parser
 
 
@@ -14,8 +15,12 @@ def main():
 
     title = input("Введите название новеллы: ")
     url = input("Введите ссылку на новеллу: ")
-    pars = Parser(title, url)
-    pars.get_novel()
+    # pars = Parser(title, url)
+    # pars.get_novel()
+
+    novel = Novel(title)
+    novel.load_novel_from_db()
+    novel.print_novel_to_terminal()
 
 
 if __name__ == '__main__':

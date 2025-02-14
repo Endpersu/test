@@ -5,7 +5,7 @@ from loguru import logger
 class Novel:
     def __init__(self, title):
         self.title = title
-        self.chapter = {}
+        self.chapters = {}
 
     def write_novel_to_db(self, chapters):
         self.chapters = chapters
@@ -16,7 +16,19 @@ class Novel:
         logger.info(f"chapters of the novel {self.title} are written to file")
 
     def load_novel_from_db(self):
-        pass
+        try:
+            with open(f'{self.title}.json', 'r', encoding='UTF-8') as json_file:
+                self.chapters = json.load(json_file)
+            
+
+        except FileNotFoundError:
+            logger.error(f'file {self.title}.json is not found')
+        except json.JSONDecodeError:
+            logger.error("Ошибка декодирования JSON")
 
     def print_novel_to_terminal(self):
-        pass
+        logger.info("Приступаем к распечатыванию новеллы в терминал: ")
+        print(f"Название: {self.title}")
+        print("Главы: ")
+        for chapter_title, chapter_content in self.chapters.items():
+            print(f"{chapter_title}: {chapter_content}")
